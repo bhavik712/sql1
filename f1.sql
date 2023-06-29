@@ -53,4 +53,20 @@ select first_name AS Most_Experaince_Person
 from Customers
 where age=(select max(age) from Customers);
 
+--Simple & Multiple join (more may be covered in next Advanced Course)
+
+--Showing the details of orders of Customers 
+select Orders.customer_id,Customers.first_name,Customers.last_name,Orders.item,Orders.amount 
+from Customers, Orders
+where Customers.customer_id = Orders.customer_id;
+
+--Details of the customers who have ordered Keyboard
+select Orders.customer_id,Customers.first_name,Customers.last_name,Orders.item,Orders.amount 
+from Customers,Orders
+where Customers.customer_id = Orders.customer_id AND item = "Keyboard";
+
+--Showing Deatails of customers' orders with Shipping Status 
+select Shippings.customer, Customers.first_name, Customers.last_name, Customers.country , Orders.item, Orders.amount, Shippings.status
+from Customers, Orders, Shippings 
+where Shippings.customer = Orders.customer_id AND Shippings.customer = Customers.customer_id;
 
