@@ -70,3 +70,45 @@ select Shippings.customer, Customers.first_name, Customers.last_name, Customers.
 from Customers, Orders, Shippings 
 where Shippings.customer = Orders.customer_id AND Shippings.customer = Customers.customer_id;
 
+--group by
+select * 
+from Customers 
+group by Country;
+
+--nested query getting the details of the orders whoose customers in USA
+select * 
+from Shippings Join Orders
+ON Shippings.customer = Orders.customer_id
+where customer in (select customer_id from Customers where country = "USA");
+
+--order by 
+Select * 
+from Customers
+ORDER BY age;
+
+--details of orders and Customer in descending order
+select *
+from Customers Join Orders 
+ON Customers.customer_id = Orders.customer_id
+ORDER BY amount DESC;
+
+--showing top 3 order - Customer details 
+select *
+from Customers Join Orders 
+ON Customers.customer_id = Orders.customer_id
+ORDER BY amount DESC
+Limit 1,3;
+
+--Combaining age & country in Order by 
+select *
+from Customers 
+order by country,age;
+
+-- Showing panding records in descending orders of country and amount 
+select * 
+from Customers JOIN Orders
+ON Customers.customer_id = Orders.customer_id
+where Customers.customer_id in (select customer from Shippings where status="Pending")
+order by Customers.country DESC ,amount DESC;
+
+
