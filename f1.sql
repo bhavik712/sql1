@@ -29,3 +29,28 @@ select first_name as Name, last_name as Surname
 from Customers
 where country="UK";
 
+--Aggregate function 
+select sum(amount) 
+from Orders;
+
+select avg(age)
+from Customers;
+
+select count(customer_id) AS Total_Customers
+from Orders;
+
+select count(country) AS Countries 
+from Customers;
+
+select count(customer_id) AS Total_Customers
+from Orders
+where item='Keyboard';
+
+
+
+--nested query 
+select first_name AS Most_Experaince_Person
+from Customers
+where age=(select max(age) from Customers);
+
+
