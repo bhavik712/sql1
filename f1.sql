@@ -111,4 +111,56 @@ ON Customers.customer_id = Orders.customer_id
 where Customers.customer_id in (select customer from Shippings where status="Pending")
 order by Customers.country DESC ,amount DESC;
 
+--Showing customers wise no of orders 
+select Customers.first_name, Customers.last_name, count(Orders.customer_id) AS No_of_orders
+from Customers LEFT JOIN Orders 
+ON Customers.customer_id = Orders.customer_id
+group by Orders.customer_id;
+
+--Showing country wise no of orders
+select Customers.country,count(Orders.Customer_id)
+from Customers LEFT JOIN Orders
+ON Customers.customer_id = Orders.customer_id
+group by Customers.country;
+
+--showing the status of orders of Keyboard
+Select Orders.customer_id, Orders.order_id, Orders.item, Orders.amount,Shippings.shipping_id,Shippings.status
+from Orders Join Shippings
+ON Orders.customer_id = Shippings.customer
+where Orders.item = "Keyboard" ;
+
+-- Joining three tables 
+Select Orders.customer_id, Customers.first_name, Customers.last_name, Orders.order_id, Orders.item,Orders.amount,Shippings.shipping_id,Shippings.status
+from Orders Join Shippings 
+ON Orders.customer_id = Shippings.customer 
+Join Customers
+ON Orders.customer_id = Customers.customer_id ;
+
+--showing keyboard -> order customer & Shipping status 
+Select Orders.customer_id, Customers.first_name, Customers.last_name, Orders.order_id, Orders.item,Orders.amount,Shippings.shipping_id,Shippings.status
+from Orders Join Shippings 
+ON Orders.customer_id = Shippings.customer 
+Join Customers
+ON Orders.customer_id = Customers.customer_id 
+where Orders.item="Keyboard";
+
+-- Showing pending order full details 
+Select Orders.customer_id, Customers.first_name, Customers.last_name, Orders.order_id, Orders.item,Orders.amount,Shippings.shipping_id,Shippings.status
+from Orders Join Shippings 
+ON Orders.customer_id = Shippings.customer 
+Join Customers
+ON Orders.customer_id = Customers.customer_id 
+where Shippings.status = "Pending";
+
+--Showing country wise pending orders 
+Select Customers.country,count(Shippings.status) AS No_of_pending_orders
+from Orders Join Shippings 
+ON Orders.customer_id = Shippings.customer 
+Join Customers
+ON Orders.customer_id = Customers.customer_id
+where Shippings.status="Pending"
+group by Customers.country;
+
+
+
 
